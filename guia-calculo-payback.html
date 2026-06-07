@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia de Cálculo — Caça-Vazamento · RJ Compressores</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:     #1A2F5E;
+  --navy2:    #122248;
+  --blue:     #185FA5;
+  --blue-lt:  #E6F1FB;
+  --blue-mid: #378ADD;
+  --green:    #1E6B3C;
+  --green-lt: #E8F5EE;
+  --amber:    #92400E;
+  --amber-lt: #FEF3C7;
+  --amber-md: #F59E0B;
+  --red:      #B91C1C;
+  --red-lt:   #FEE2E2;
+  --text:     #0F172A;
+  --text2:    #475569;
+  --text3:    #94A3B8;
+  --border:   #E2E8F0;
+  --surface:  #FFFFFF;
+  --bg:       #F8FAFC;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── HEADER */
+.hdr {
+  background: var(--navy);
+  padding: 24px 32px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 3px solid var(--blue-mid);
+}
+.hdr-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hdr-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--blue);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.hdr-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+.hdr-sub {
+  font-size: 12px;
+  color: #9DC3E6;
+  font-weight: 400;
+  margin-top: 1px;
+}
+.hdr-badge {
+  background: rgba(55,138,221,.2);
+  border: 1px solid rgba(55,138,221,.4);
+  color: #B5D4F4;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: .04em;
+}
+
+/* ── LAYOUT */
+.wrap {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* ── INTRO */
+.intro {
+  margin-bottom: 36px;
+}
+.intro h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.intro p {
+  font-size: 15px;
+  color: var(--text2);
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+/* ── STEP CARDS */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+
+.step-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: box-shadow .2s;
+}
+.step-card:hover { box-shadow: 0 4px 24px rgba(26,47,94,.08); }
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  cursor: pointer;
+  user-select: none;
+}
+.step-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--blue);
+  background: var(--blue-lt);
+  padding: 4px 10px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+.step-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--navy);
+  flex: 1;
+}
+.step-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.step-toggle {
+  font-size: 18px;
+  color: var(--text3);
+  transition: transform .2s;
+  flex-shrink: 0;
+}
+.step-card.open .step-toggle { transform: rotate(180deg); }
+
+.step-body {
+  display: none;
+  padding: 0 24px 24px;
+  border-top: 1px solid var(--border);
+}
+.step-card.open .step-body { display: block; }
+
+.step-desc {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.65;
+  margin-top: 16px;
+  margin-bottom: 14px;
+}
+
+/* ── ONDE ENCONTRAR */
+.where {
+  background: var(--amber-lt);
+  border: 1px solid #FDE68A;
+  border-radius: 10px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--amber);
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+.where-icon { flex-shrink: 0; font-size: 16px; margin-top: 1px; }
+
+/* ── INPUT CALC */
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+.input-row label {
+  font-size: 13px;
+  color: var(--text2);
+  font-weight: 500;
+  width: 180px;
+  flex-shrink: 0;
+}
+.input-row input {
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--navy);
+  width: 160px;
+  background: var(--bg);
+  transition: border-color .15s, box-shadow .15s;
+}
+.input-row input:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(24,95,165,.12);
+  background: #fff;
+}
+.input-unit {
+  font-size: 13px;
+  color: var(--text3);
+  font-family: 'DM Mono', monospace;
+}
+
+/* ── FÓRMULA */
+.formula-box {
+  background: var(--navy);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.formula-label {
+  font-size: 12px;
+  color: #9DC3E6;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.formula-expr {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  color: #fff;
+}
+.formula-result {
+  text-align: right;
+}
+.formula-result-label {
+  font-size: 11px;
+  color: #9DC3E6;
+  margin-bottom: 2px;
+}
+.formula-result-value {
+  font-family: 'Syne', monospace;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  transition: all .3s;
+}
+.formula-result-value.highlight {
+  color: #6EE7B7;
+}
+
+/* ── SEPARADOR */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 36px 0;
+}
+
+/* ── TABELA COMPLETA */
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.section-sub {
+  font-size: 14px;
+  color: var(--text2);
+  margin-bottom: 20px;
+}
+
+.example-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+.example-table th {
+  background: var(--navy);
+  color: #fff;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  text-align: left;
+}
+.example-table th:last-child { text-align: right; }
+.example-table td {
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.example-table tr:last-child td { border-bottom: none; }
+.example-table tr:nth-child(even) td { background: var(--bg); }
+.example-table .td-label {
+  font-weight: 500;
+  color: var(--text);
+}
+.example-table .td-ref {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--text2);
+}
+.example-table .td-val {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--navy);
+  text-align: right;
+}
+.example-table .td-val.green {
+  color: var(--green);
+  font-size: 16px;
+}
+.example-table .row-result td {
+  background: var(--green-lt);
+  border-top: 2px solid var(--green);
+}
+.example-table .row-payback td {
+  background: var(--blue-lt);
+  border-top: 2px solid var(--blue);
+}
+.example-table .row-result .td-label {
+  color: var(--green);
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+}
+.example-table .row-payback .td-label {
+  color: var(--blue);
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+}
+.td-formula {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text3);
+}
+.badge-input {
+  background: var(--amber-lt);
+  color: var(--amber);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin-left: 8px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+/* ── CALC LIVE */
+.calc-live {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 28px;
+}
+.calc-live-header {
+  background: var(--blue-lt);
+  border-bottom: 1px solid #BFDBFE;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.calc-live-header h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.calc-live-header span {
+  font-size: 12px;
+  color: var(--blue);
+  background: var(--surface);
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid #BFDBFE;
+}
+.calc-live-body {
+  padding: 20px 24px;
+}
+.calc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.calc-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: 6px;
+}
+.calc-field input {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-family: 'DM Mono', monospace;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--navy);
+  background: var(--amber-lt);
+  border-color: #FDE68A;
+  transition: all .15s;
+}
+.calc-field input:focus {
+  outline: none;
+  background: #fff;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(24,95,165,.1);
+}
+.calc-results {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+.calc-result-card {
+  border-radius: 10px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+}
+.calc-result-card.custo { background: var(--bg); }
+.calc-result-card.economia { background: var(--green-lt); border-color: #A7F3D0; }
+.calc-result-card.payback { background: var(--navy); }
+.calc-result-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text3);
+}
+.calc-result-card.economia .calc-result-label { color: var(--green); }
+.calc-result-card.payback .calc-result-label { color: #9DC3E6; }
+.calc-result-value {
+  font-family: 'Syne', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  transition: all .2s;
+}
+.calc-result-card.economia .calc-result-value { color: var(--green); }
+.calc-result-card.payback .calc-result-value { color: #fff; font-size: 18px; }
+.calc-result-sub {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 2px;
+}
+.calc-result-card.payback .calc-result-sub { color: #9DC3E6; }
+
+/* ── DICAS */
+.tips {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 28px;
+}
+.tip-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  border-left: 4px solid;
+}
+.tip-card.blue { border-left-color: var(--blue); }
+.tip-card.green { border-left-color: var(--green); }
+.tip-card.amber { border-left-color: var(--amber-md); }
+.tip-card.navy { border-left-color: var(--navy); }
+.tip-icon { font-size: 22px; margin-bottom: 8px; }
+.tip-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.tip-text {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.55;
+}
+
+/* ── FOOTER */
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text3);
+  padding: 32px 0 0;
+  border-top: 1px solid var(--border);
+  margin-top: 48px;
+}
+
+@media (max-width: 580px) {
+  .calc-grid { grid-template-columns: 1fr; }
+  .calc-results { grid-template-columns: 1fr; }
+  .tips { grid-template-columns: 1fr; }
+  .input-row { flex-wrap: wrap; }
+  .input-row label { width: 100%; }
+  .hdr { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-brand">
+    <div class="hdr-icon">🔍</div>
+    <div>
+      <div class="hdr-title">Guia de Cálculo · Caça-Vazamento</div>
+      <div class="hdr-sub">RJ Compressores / Serrana Compressores / Criciúma Compressores</div>
+    </div>
+  </div>
+  <div class="hdr-badge">Uso interno — Equipe comercial</div>
+</header>
+
+<div class="wrap">
+
+  <div class="intro">
+    <h1>Como calcular o retorno da consultoria</h1>
+    <p>Siga os 4 passos abaixo para montar o argumento de payback antes de enviar a proposta. Você precisa de 4 informações do cliente — a conta é simples e o resultado é poderoso.</p>
+  </div>
+
+  <!-- PASSO 1 -->
+  <div class="steps">
+
+    <div class="step-card open" onclick="toggle(this)">
+      <div class="step-header">
+        <span class="step-num">Passo 1</span>
+        <span class="step-icon">⚡</span>
+        <span class="step-title">Potência total instalada (kW)</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p class="step-desc">Soma da potência de todos os compressores da planta, em kW. Se o cliente tiver mais de um compressor, some todos.</p>
+        <div class="where">
+          <span class="where-icon">📍</span>
+          <span><strong>Onde encontrar:</strong> Plaqueta metálica fixada no compressor (campo "kW" ou "HP"). Se estiver em HP, multiplique por 0,746 para converter para kW.<br>Exemplo: 100 HP × 0,746 = <strong>74,6 kW</strong></span>
+        </div>
+        <div class="input-row">
+          <label>Potência total</label>
+          <input type="number" id="kw" placeholder="ex: 75" oninput="calc()" min="1" max="2000">
+          <span class="input-unit">kW</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card" onclick="toggle(this)">
+      <div class="step-header">
+        <span class="step-num">Passo 2</span>
+        <span class="step-icon">🕐</span>
+        <span class="step-title">Horas de operação por mês</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p class="step-desc">Quantas horas por mês o compressor fica ligado. Depende do número de turnos e dias de operação da fábrica.</p>
+        <div class="where">
+          <span class="where-icon">📍</span>
+          <span><strong>Como estimar:</strong><br>
+          1 turno (8h/dia, 22 dias) = <strong>176h/mês</strong><br>
+          2 turnos (16h/dia, 22 dias) = <strong>352h/mês</strong><br>
+          3 turnos / contínuo (24h/dia, 30 dias) = <strong>720h/mês</strong><br>
+          Dúvida? Use 480h como referência conservadora.</span>
+        </div>
+        <div class="input-row">
+          <label>Horas de operação</label>
+          <input type="number" id="horas" placeholder="ex: 480" oninput="calc()" min="1" max="744">
+          <span class="input-unit">horas/mês</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card" onclick="toggle(this)">
+      <div class="step-header">
+        <span class="step-num">Passo 3</span>
+        <span class="step-icon">💡</span>
+        <span class="step-title">Tarifa de energia elétrica (R$/kWh)</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p class="step-desc">O custo que o cliente paga por cada kWh consumido. Varia conforme a distribuidora, estado e tipo de contrato.</p>
+        <div class="where">
+          <span class="where-icon">📍</span>
+          <span><strong>Onde encontrar:</strong> Conta de energia do cliente, campo "Tarifa" ou "R$/kWh".<br>
+          Não sabe? Use <strong>R$ 0,85</strong> para SC como referência conservadora.<br>
+          Indústrias com demanda contratada podem ter tarifas de R$ 0,60 a R$ 1,20/kWh.</span>
+        </div>
+        <div class="input-row">
+          <label>Tarifa de energia</label>
+          <input type="number" id="tarifa" placeholder="ex: 0.85" step="0.01" oninput="calc()" min="0.1" max="3">
+          <span class="input-unit">R$/kWh</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card" onclick="toggle(this)">
+      <div class="step-header">
+        <span class="step-num">Passo 4</span>
+        <span class="step-icon">💨</span>
+        <span class="step-title">% estimado de vazamento na rede</span>
+        <span class="step-toggle">▼</span>
+      </div>
+      <div class="step-body">
+        <p class="step-desc">Percentual do ar comprimido que está sendo perdido por vazamentos. Sem uma inspeção, usamos referências de mercado.</p>
+        <div class="where">
+          <span class="where-icon">📍</span>
+          <span><strong>Referências de mercado:</strong><br>
+          Sistema <strong>bem mantido</strong>: 20–25% de perda<br>
+          Sistema <strong>com manutenção regular</strong>: 25–35% de perda<br>
+          Sistema <strong>sem controle técnico</strong>: 35–50% de perda<br><br>
+          <strong>Use 30% como padrão</strong> para uma estimativa conservadora e crível.</span>
+        </div>
+        <div class="input-row">
+          <label>Vazamento estimado</label>
+          <input type="number" id="pct" placeholder="ex: 30" oninput="calc()" min="5" max="70">
+          <span class="input-unit">%</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /steps -->
+
+  <hr class="divider">
+
+  <!-- TABELA EXEMPLO -->
+  <div class="section-title">📊 Exemplo real de cálculo</div>
+  <p class="section-sub">Fábrica com 2 compressores de 75 kW cada, 2 turnos, SC — referência para apresentar ao cliente.</p>
+
+  <table class="example-table">
+    <thead>
+      <tr>
+        <th style="width:36%">Parâmetro</th>
+        <th style="width:24%">Valor</th>
+        <th>Como foi calculado</th>
+        <th style="width:18%">Resultado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="td-label">Potência instalada <span class="badge-input">cliente informa</span></td>
+        <td class="td-ref">2 × 75 kW</td>
+        <td class="td-formula">Soma dos compressores</td>
+        <td class="td-val">150 kW</td>
+      </tr>
+      <tr>
+        <td class="td-label">Horas de operação/mês <span class="badge-input">cliente informa</span></td>
+        <td class="td-ref">2 turnos, 22 dias</td>
+        <td class="td-formula">16h × 22 dias</td>
+        <td class="td-val">352 h</td>
+      </tr>
+      <tr>
+        <td class="td-label">Tarifa de energia <span class="badge-input">conta de luz</span></td>
+        <td class="td-ref">SC — referência</td>
+        <td class="td-formula">Conta de energia</td>
+        <td class="td-val">R$ 0,85/kWh</td>
+      </tr>
+      <tr>
+        <td class="td-label">% de vazamento estimado <span class="badge-input">referência mercado</span></td>
+        <td class="td-ref">Manutenção regular</td>
+        <td class="td-formula">Referência conservadora</td>
+        <td class="td-val">30%</td>
+      </tr>
+      <tr>
+        <td class="td-label">Custo total de energia/mês</td>
+        <td class="td-ref">150 × 352 × 0,85</td>
+        <td class="td-formula">kW × horas × tarifa</td>
+        <td class="td-val">R$ 44.880</td>
+      </tr>
+      <tr class="row-result">
+        <td class="td-label">💰 Economia estimada/mês</td>
+        <td class="td-ref">44.880 × 30%</td>
+        <td class="td-formula">Custo × % vazamento</td>
+        <td class="td-val green">R$ 13.464</td>
+      </tr>
+      <tr>
+        <td class="td-label">Investimento na consultoria</td>
+        <td class="td-ref">Proposta</td>
+        <td class="td-formula">Valor cobrado pela RJ</td>
+        <td class="td-val">R$ 5.200</td>
+      </tr>
+      <tr class="row-payback">
+        <td class="td-label">⏱ Payback da consultoria</td>
+        <td class="td-ref">5.200 ÷ 13.464</td>
+        <td class="td-formula">Investimento ÷ economia mensal</td>
+        <td class="td-val green" style="color:var(--blue);font-size:16px">0,39 meses<br><small style="font-size:12px;font-weight:400">≈ 12 dias</small></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- CALCULADORA LIVE -->
+  <div class="calc-live">
+    <div class="calc-live-header">
+      <span>🧮</span>
+      <h3>Calculadora — preencha com os dados do seu cliente</h3>
+      <span>Atualiza em tempo real</span>
+    </div>
+    <div class="calc-live-body">
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label>Potência total (kW)</label>
+          <input type="number" id="lkw" placeholder="ex: 150" oninput="calcLive()" min="1">
+        </div>
+        <div class="calc-field">
+          <label>Horas de operação/mês</label>
+          <input type="number" id="lhoras" placeholder="ex: 352" oninput="calcLive()" min="1">
+        </div>
+        <div class="calc-field">
+          <label>Tarifa de energia (R$/kWh)</label>
+          <input type="number" id="ltarifa" placeholder="ex: 0.85" step="0.01" oninput="calcLive()" min="0.01">
+        </div>
+        <div class="calc-field">
+          <label>% de vazamento estimado</label>
+          <input type="number" id="lpct" placeholder="ex: 30" oninput="calcLive()" min="1" max="80">
+        </div>
+      </div>
+      <div class="calc-grid" style="grid-template-columns:1fr;gap:8px;margin-bottom:14px">
+        <div class="calc-field">
+          <label>Investimento na consultoria (R$)</label>
+          <input type="number" id="linvest" placeholder="ex: 5200" oninput="calcLive()" min="1">
+        </div>
+      </div>
+      <div class="calc-results">
+        <div class="calc-result-card custo">
+          <div class="calc-result-label">Custo energia/mês</div>
+          <div class="calc-result-value" id="r-custo">—</div>
+          <div class="calc-result-sub">kW × horas × tarifa</div>
+        </div>
+        <div class="calc-result-card economia">
+          <div class="calc-result-label">Economia estimada/mês</div>
+          <div class="calc-result-value" id="r-econ">—</div>
+          <div class="calc-result-sub">custo × % vazamento</div>
+        </div>
+        <div class="calc-result-card payback">
+          <div class="calc-result-label">Payback da consultoria</div>
+          <div class="calc-result-value" id="r-pay">—</div>
+          <div class="calc-result-sub" id="r-pay-dias"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- DICAS -->
+  <div class="section-title">💡 Dicas para usar o argumento na reunião</div>
+  <p class="section-sub">Como apresentar os números de forma convincente ao cliente.</p>
+  <div class="tips">
+    <div class="tip-card blue">
+      <div class="tip-icon">🎯</div>
+      <div class="tip-title">Use o payback em dias, não em meses</div>
+      <div class="tip-text">Dizer "payback em 12 dias" é muito mais impactante do que "0,4 meses". Sempre converta para dias quando o resultado for menor que 1 mês.</div>
+    </div>
+    <div class="tip-card green">
+      <div class="tip-icon">📉</div>
+      <div class="tip-title">Seja conservador no % de vazamento</div>
+      <div class="tip-text">Comece com 20–25% mesmo que o sistema pareça pior. Surpresa positiva é sempre melhor. Diga: "esta é uma estimativa conservadora — a economia real pode ser maior."</div>
+    </div>
+    <div class="tip-card amber">
+      <div class="tip-icon">🔢</div>
+      <div class="tip-title">Mostre a economia em 12 meses</div>
+      <div class="tip-text">Multiplique a economia mensal por 12 para mostrar o ganho anual. Ex: R$ 13.464 × 12 = <strong>R$ 161.568/ano</strong>. O impacto visual é muito maior.</div>
+    </div>
+    <div class="tip-card navy">
+      <div class="tip-icon">📋</div>
+      <div class="tip-title">Copie os valores para a proposta</div>
+      <div class="tip-text">Depois de calcular, preencha os campos [[amarelos]] na tabela de estimativa de retorno da proposta Word. Os resultados finais vão em [[ECONOMIA]] e [[PAYBACK]].</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Grupo RJ Compressores · Material de uso interno · Equipe Comercial<br>
+    Valores estimados — resultados reais dependem da inspeção ultrassônica
+  </div>
+
+</div><!-- /wrap -->
+
+<script>
+function toggle(card) {
+  const isOpen = card.classList.contains('open');
+  // Não fechar o que está abrindo para manter os inputs
+  card.classList.toggle('open', !isOpen);
+}
+
+function fmt(v) {
+  return 'R$ ' + Math.round(v).toLocaleString('pt-BR', {minimumFractionDigits: 0});
+}
+
+function calc() {
+  // atualiza calculadora live com os valores dos steps
+  const kw = parseFloat(document.getElementById('kw')?.value) || 0;
+  const h  = parseFloat(document.getElementById('horas')?.value) || 0;
+  const t  = parseFloat(document.getElementById('tarifa')?.value) || 0;
+  const p  = parseFloat(document.getElementById('pct')?.value) || 0;
+
+  if (kw && h && t && p) {
+    document.getElementById('lkw').value = kw;
+    document.getElementById('lhoras').value = h;
+    document.getElementById('ltarifa').value = t;
+    document.getElementById('lpct').value = p;
+    calcLive();
+  }
+}
+
+function calcLive() {
+  const kw     = parseFloat(document.getElementById('lkw').value) || 0;
+  const horas  = parseFloat(document.getElementById('lhoras').value) || 0;
+  const tarifa = parseFloat(document.getElementById('ltarifa').value) || 0;
+  const pct    = parseFloat(document.getElementById('lpct').value) || 0;
+  const invest = parseFloat(document.getElementById('linvest').value) || 0;
+
+  const custo  = kw * horas * tarifa;
+  const econ   = custo * (pct / 100);
+  const payMes = invest > 0 && econ > 0 ? invest / econ : null;
+  const payDias = payMes ? Math.round(payMes * 30) : null;
+
+  const rCusto = document.getElementById('r-custo');
+  const rEcon  = document.getElementById('r-econ');
+  const rPay   = document.getElementById('r-pay');
+  const rPayD  = document.getElementById('r-pay-dias');
+
+  if (custo > 0) {
+    rCusto.textContent = fmt(custo);
+    rCusto.style.fontSize = '18px';
+  } else {
+    rCusto.textContent = '—';
+  }
+
+  if (econ > 0) {
+    rEcon.textContent = fmt(econ);
+    rEcon.classList.add('highlight');
+  } else {
+    rEcon.textContent = '—';
+    rEcon.classList.remove('highlight');
+  }
+
+  if (payMes !== null) {
+    if (payMes < 1) {
+      rPay.textContent = payDias + ' dias';
+      rPayD.textContent = (payMes).toFixed(2).replace('.',',') + ' meses';
+    } else {
+      rPay.textContent = payMes.toFixed(1).replace('.',',') + ' meses';
+      rPayD.textContent = payDias + ' dias aproximadamente';
+    }
+  } else {
+    rPay.textContent = '—';
+    rPayD.textContent = invest > 0 ? 'preencha todos os campos' : 'informe o investimento';
+  }
+}
+</script>
+</body>
+</html>
